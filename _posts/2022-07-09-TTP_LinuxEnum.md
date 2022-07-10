@@ -32,20 +32,20 @@ tags:
 
 1. Verify Sudo
 
-```bash
-#ACTION:
+  ```bash
+  #ACTION:
 
-sudo -l
+  sudo -l
 
-#PASS:
-- No password prompt
-- "run the following commands" will be "(ALL) ALL" or Other commands
+  #PASS:
+  - No password prompt
+  - "run the following commands" will be "(ALL) ALL" or Other commands
 
-#FAIL:
-- Password Prompt
-- No Commands specified for user with sudo
+  #FAIL:
+  - Password Prompt
+  - No Commands specified for user with sudo
 
-```
+  ```
 
 2. Check Root Processes
 
