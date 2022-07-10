@@ -15,33 +15,40 @@ tags:
   - Linux
 ---
 
-## Purpose: 
+**Purpose:** 
 - This will show 5 basic tasks to complete once user is gained on a linux-based machine. This meant for basic enumeration but is a good place to start
-## Tested/Verified on:
+
+**Tested/Verified on:**
 - HTB Easy Boxes
-## Tools:
-## Created On: 07/09/2022 
-## Last Updated: 07/09/2022 
+
+**Tools:**
+
+**Created On: 07/09/2022**
+
+**Last Updated: 07/09/2022**
+
 
 ---
 
 1. Verify Sudo
+
 ```bash
 #ACTION:
 
 sudo -l
 
-# PASS:
+#PASS:
 - No password prompt
 - "run the following commands" will be "(ALL) ALL" or Other commands
 
-# FAIL:
+#FAIL:
 - Password Prompt
 - No Commands specified for user with sudo
 
 ```
 
 2. Check Root Processes
+
 ```bash
 #ACTION:
 
@@ -57,6 +64,7 @@ ps auxwe | grep root
 ```
 
 3. Check what is listening on system
+
 ```bash
 #ACTION:
 
@@ -72,6 +80,7 @@ ss -tln
 ```
 
 4. Search for all readable SUID files
+
 ```bash
 
 #ACTION:
@@ -88,6 +97,7 @@ find / -perm -u=s -type f 2>/dev/null
 ```
 
 5. Search for Kernel and OS Version
+
 ```bash
 #ACTION:
 
