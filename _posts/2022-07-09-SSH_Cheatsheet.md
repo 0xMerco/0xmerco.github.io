@@ -34,13 +34,13 @@ tags:
 
 ## Steps:
 
-1) Create User
+1. Create User
 
-```
-useradd --shell /bin/bash username
-```
+  ```
+  useradd --shell /bin/bash username
+  ```
 
-2) Generate ssh keypair and upload
+2. Generate ssh keypair and upload
 - Make sure to not password protect the key since this will be used in scripts
 
   ```
@@ -49,36 +49,36 @@ useradd --shell /bin/bash username
   ssh-copy-id -i ~/.ssh/forwards.key user@host
   ```
 
-3) Login as username with public key to make sure you have a shell and everything is working
+3. Login as username with public key to make sure you have a shell and everything is working
 
-4) Logout, Login as root and change "etc/passwd" shell for username to 
+4. Logout, Login as root and change "etc/passwd" shell for username to 
 
-```
-/bin/false
-```
+    ```
+    /bin/false
+    ```
 
-5) lock down user in ssh_config, add this:
+5. lock down user in ssh_config, add this:
 
-```
-Match User username
-    PasswordAuthentication no
-    PubkeyAuthentication yes
-    PermitEmptyPasswords no
-    GatewayPorts no
-    X11Forwarding no
-    AllowAgentForwarding no
+    ```
+    Match User username
+        PasswordAuthentication no
+        PubkeyAuthentication yes
+        PermitEmptyPasswords no
+        GatewayPorts no
+        X11Forwarding no
+        AllowAgentForwarding no
 
-    #Additional Options based off your config:
-    #ForceCommand /bin/false
-    #Disables "-R":
-    #AllowTcpForwarding yes 
-    #PermitOpen localhost:62222
-    #PermitTunnel no
-```
+        #Additional Options based off your config:
+        #ForceCommand /bin/false
+        #Disables "-R":
+        #AllowTcpForwarding yes 
+        #PermitOpen localhost:62222
+        #PermitTunnel no
+    ```
 
-6) Restart SSH Server
+6. Restart SSH Server
 
-7) username should now be only able to forward ports, verfiy by trying to do scp, sftp and direct commands with ssh.
+7. username should now be only able to forward ports, verfiy by trying to do scp, sftp and direct commands with ssh.
 
 
 ---
@@ -86,37 +86,37 @@ Match User username
 ## Setup SSH Key based authentication
 1. use ssh-keygen to generate keys
 
-```
-ssh keygen -f hello
-```
+    ```
+    ssh keygen -f hello
+    ```
     This will generate two files: "hello" and "hello.pub"
 2. Copy public key ("hello.pub") to remote ssh server and concatinate it under user "authorized_hosts" file (/home/user/.ssh/authorized_hosts). Note: you can remove the comment at end so:
 
-This: 
-```
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDK36LA/ZcqDF5RbVn9HQDpg3DWUFn97fcVEG+vlitoBzG0LlcFhty5NDARcnZluUTxcx0obY6WgjiQveKG63tT/M7p2zZlqw9QDj6a3vDvyEQ0/gc9We88fcd1oSFmkGuOOO2edim5NJZmzO+9+BLFlkB6KawH6pSiMkyYJ26apnMlyT+lLjQKaLFgsPpkwK0pExtDHTLUDUmtWMmoo+ZtuWPsw1Fozv6liiX3I29LQt5q7ZPBL8q1mlPdNIxePBJf/cGbdg4TvtbWOhrpQqzOv6azHRqKiymWhcO5LMKlv0LpnDnr1ggeOOZ1W6dXt9oVnZHnsgBF4GAKhzfrsPpK6pQcrx+Xcrozn60r5TFzSiBZ3qq1vJwSQYbwfA2oYrRjMORXmCO9qV4aby26BTfYWywGdFTHSYA394gPs7o/IqAfFeKDId5R2oNPKeON9EIBTkrWDxQ95L3CbCP2RS0azcuyEfzOS51xPlFEHoap2OKSJmb7tPVKb5zt1/yiRoE= root@spooky
-```
-Is equivalent to:
+    This: 
+    ```
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDK36LA/ZcqDF5RbVn9HQDpg3DWUFn97fcVEG+vlitoBzG0LlcFhty5NDARcnZluUTxcx0obY6WgjiQveKG63tT/M7p2zZlqw9QDj6a3vDvyEQ0/gc9We88fcd1oSFmkGuOOO2edim5NJZmzO+9+BLFlkB6KawH6pSiMkyYJ26apnMlyT+lLjQKaLFgsPpkwK0pExtDHTLUDUmtWMmoo+ZtuWPsw1Fozv6liiX3I29LQt5q7ZPBL8q1mlPdNIxePBJf/cGbdg4TvtbWOhrpQqzOv6azHRqKiymWhcO5LMKlv0LpnDnr1ggeOOZ1W6dXt9oVnZHnsgBF4GAKhzfrsPpK6pQcrx+Xcrozn60r5TFzSiBZ3qq1vJwSQYbwfA2oYrRjMORXmCO9qV4aby26BTfYWywGdFTHSYA394gPs7o/IqAfFeKDId5R2oNPKeON9EIBTkrWDxQ95L3CbCP2RS0azcuyEfzOS51xPlFEHoap2OKSJmb7tPVKb5zt1/yiRoE= root@spooky
+    ```
+    Is equivalent to:
 
-```
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDK36LA/ZcqDF5RbVn9HQDpg3DWUFn97fcVEG+vlitoBzG0LlcFhty5NDARcnZluUTxcx0obY6WgjiQveKG63tT/M7p2zZlqw9QDj6a3vDvyEQ0/gc9We88fcd1oSFmkGuOOO2edim5NJZmzO+9+BLFlkB6KawH6pSiMkyYJ26apnMlyT+lLjQKaLFgsPpkwK0pExtDHTLUDUmtWMmoo+ZtuWPsw1Fozv6liiX3I29LQt5q7ZPBL8q1mlPdNIxePBJf/cGbdg4TvtbWOhrpQqzOv6azHRqKiymWhcO5LMKlv0LpnDnr1ggeOOZ1W6dXt9oVnZHnsgBF4GAKhzfrsPpK6pQcrx+Xcrozn60r5TFzSiBZ3qq1vJwSQYbwfA2oYrRjMORXmCO9qV4aby26BTfYWywGdFTHSYA394gPs7o/IqAfFeKDId5R2oNPKeON9EIBTkrWDxQ95L3CbCP2RS0azcuyEfzOS51xPlFEHoap2OKSJmb7tPVKb5zt1/yiRoE=
-```
+    ```
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDK36LA/ZcqDF5RbVn9HQDpg3DWUFn97fcVEG+vlitoBzG0LlcFhty5NDARcnZluUTxcx0obY6WgjiQveKG63tT/M7p2zZlqw9QDj6a3vDvyEQ0/gc9We88fcd1oSFmkGuOOO2edim5NJZmzO+9+BLFlkB6KawH6pSiMkyYJ26apnMlyT+lLjQKaLFgsPpkwK0pExtDHTLUDUmtWMmoo+ZtuWPsw1Fozv6liiX3I29LQt5q7ZPBL8q1mlPdNIxePBJf/cGbdg4TvtbWOhrpQqzOv6azHRqKiymWhcO5LMKlv0LpnDnr1ggeOOZ1W6dXt9oVnZHnsgBF4GAKhzfrsPpK6pQcrx+Xcrozn60r5TFzSiBZ3qq1vJwSQYbwfA2oYrRjMORXmCO9qV4aby26BTfYWywGdFTHSYA394gPs7o/IqAfFeKDId5R2oNPKeON9EIBTkrWDxQ95L3CbCP2RS0azcuyEfzOS51xPlFEHoap2OKSJmb7tPVKb5zt1/yiRoE=
+    ```
 
 3. On Remote Server, change the "/etc/ssh/sshd_config" option of "PasswordAuthentication" to "no" and restart sshd service:
 
-```
-systemctl restart sshd
-```
+    ```
+    systemctl restart sshd
+    ```
 4. Change permissions of private key ("hello") to 600:
 
-```
-chmod 600 hello
-```
+    ```
+    chmod 600 hello
+    ```
 5. Now Connect to remote server like:
 
-```
-ssh -i ./hello user@${REMOTE SERVER IP OR DNS}
-```
+    ```
+    ssh -i ./hello user@${REMOTE SERVER IP OR DNS}
+    ```
 
 
 ---

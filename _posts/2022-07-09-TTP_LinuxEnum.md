@@ -32,91 +32,91 @@ tags:
 
 1. Verify Sudo
 
-  ```bash
-  #ACTION:
+    ```bash
+    #ACTION:
 
-  sudo -l
+    sudo -l
 
-  #PASS:
-  - No password prompt
-  - "run the following commands" will be "(ALL) ALL" or Other commands
+    #PASS:
+    - No password prompt
+    - "run the following commands" will be "(ALL) ALL" or Other commands
 
-  #FAIL:
-  - Password Prompt
-  - No Commands specified for user with sudo
+    #FAIL:
+    - Password Prompt
+    - No Commands specified for user with sudo
 
-  ```
+    ```
 
 2. Check Root Processes
 
-```bash
-#ACTION:
+    ```bash
+    #ACTION:
 
-ps auxwe | grep root
+    ps auxwe | grep root
 
-#PASS:
-- All Root Processes are displayed with full command paths
+    #PASS:
+    - All Root Processes are displayed with full command paths
 
 
-#FAIL:
-- No Root Processes are displayed or output format is unreadable
+    #FAIL:
+    - No Root Processes are displayed or output format is unreadable
 
-```
+    ```
 
 3. Check what is listening on system
 
-```bash
-#ACTION:
+    ```bash
+    #ACTION:
 
-ss -tln
+    ss -tln
 
-#PASS:
-- All listening processes are displayed
+    #PASS:
+    - All listening processes are displayed
 
-#FAIL:
-- All listening processes are not displayed
+    #FAIL:
+    - All listening processes are not displayed
 
 
-```
+    ```
 
 4. Search for all readable SUID files
 
-```bash
+    ```bash
 
-#ACTION:
+    #ACTION:
 
-find / -perm -u=s -type f 2>/dev/null
+    find / -perm -u=s -type f 2>/dev/null
 
-#PASS:
-- SUID files are displayed
+    #PASS:
+    - SUID files are displayed
 
-#FAIL:
-- SUID files are not displayed
+    #FAIL:
+    - SUID files are not displayed
 
 
-```
+    ```
 
 5. Search for Kernel and OS Version
 
-```bash
-#ACTION:
+    ```bash
+    #ACTION:
 
-uname -a
+    uname -a
 
-#PASS:
-- Info is displayed
+    #PASS:
+    - Info is displayed
 
-#FAIL:
-- Info is not displayed
+    #FAIL:
+    - Info is not displayed
 
-#ACTION:
+    #ACTION:
 
-cat /etc/*release*
+    cat /etc/*release*
 
-#PASS:
-- Info is displayed
+    #PASS:
+    - Info is displayed
 
-#FAIL:
-- Info is not displayed
+    #FAIL:
+    - Info is not displayed
 
-```
+    ```

