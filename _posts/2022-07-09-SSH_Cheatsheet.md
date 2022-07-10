@@ -36,18 +36,19 @@ tags:
 
 1. Create User
 
-  ```
-  useradd --shell /bin/bash username
-  ```
+    ```
+    useradd --shell /bin/bash username
+    ```
 
 2. Generate ssh keypair and upload
+
 - Make sure to not password protect the key since this will be used in scripts
 
   ```
-  ssh-keygen -f ~/.ssh/forwards.key -t ecdsa -b 521
+    ssh-keygen -f ~/.ssh/forwards.key -t ecdsa -b 521
 
-  ssh-copy-id -i ~/.ssh/forwards.key user@host
-  ```
+    ssh-copy-id -i ~/.ssh/forwards.key user@host
+    ```
 
 3. Login as username with public key to make sure you have a shell and everything is working
 
