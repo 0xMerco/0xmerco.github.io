@@ -42,9 +42,9 @@ tags:
 
 2. Generate ssh keypair and upload
 
-- Make sure to not password protect the key since this will be used in scripts
+    -Make sure to not password protect the key since this will be used in scripts
 
-  ```
+    ```
     ssh-keygen -f ~/.ssh/forwards.key -t ecdsa -b 521
 
     ssh-copy-id -i ~/.ssh/forwards.key user@host
