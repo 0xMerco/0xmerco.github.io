@@ -55,7 +55,7 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "0x-TobesT0b35Tobes-0x"
+  name   : "0xT0b35"
   avatar : "/assets/images/avatar.png"
   bio    : "Learning CyberSec For Fun"
   links:
