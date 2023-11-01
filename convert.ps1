@@ -90,19 +90,6 @@ $headerExcerpt = $Excerpt
 $headerCategories = ($Categories -split ',' | ForEach-Object { "    - $_" }) -join "`n"
 $headerTags = ($Tags -split ',' | ForEach-Object { "    - $_" }) -join "`n"
 
-if ($Teaser) {
-    
-    $teaserFileName = $($Teaser -split "\\" | Select-Object -Last 1)
-    $teaserMoveFilePath = "${imageDir}\${teaserFileName}"
-    $teaserHomePage = $true
-
-} 
-else {
-
-    $teaserHomePage = $false
-
-}
-
 
 ## Check if dir exists, this will be checked from root of script, if not, then create dir
 
@@ -139,15 +126,29 @@ else {
 
 ## Teaser
 
-if (Test-Path -Path $Teaser -PathType Leaf) {
+if ($Teaser) {
+    
+    $teaserFileName = $($Teaser -split "\\" | Select-Object -Last 1)
+    $teaserMoveFilePath = "${imageDir}\${teaserFileName}"
+    $teaserHomePage = $true
+
+    if (Test-Path -Path $Teaser -PathType Leaf) {
 
 
-    Move-Item -Path $Teaser -Destination $imageDir -Force
+        Move-Item -Path $Teaser -Destination $imageDir -Force
+    
+    }
+    else {
+    
+        throw "<ERROR>Could Not find Teaser File!"
+    
+    }
+    
 
-}
+} 
 else {
 
-    throw "<ERROR>Could Not find Teaser File!"
+    $teaserHomePage = $false
 
 }
 
