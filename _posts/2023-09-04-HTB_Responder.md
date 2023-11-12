@@ -1,4 +1,3 @@
-
 ---
 title: "HTB Very Easy: Responder"
 date: 2023-09-04
@@ -7,13 +6,14 @@ excerpt: "Learned How To User Responder"
 classes: wide
 header:
   teaser: "/assets/images/Responder/responder.png"
-  teaser_home_page: True 
+  teaser_home_page: true 
   #icon: "/assets/images/HTB_Laboratory"
 categories:
     - HTB
 tags:
     - responder
 ---
+
 ## Responder
 ## Very Easy
 

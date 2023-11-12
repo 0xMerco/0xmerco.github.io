@@ -173,7 +173,7 @@ if ($Teaser) {
     
     $teaserFileName = $($Teaser -split "\\" | Select-Object -Last 1)
     $teaserMoveFilePath = "${mdImageDir}/${teaserFileName}"
-    $teaserHomePage = $true
+    $teaserHomePage = "true"
 
     if (Test-Path -Path $Teaser -PathType Leaf) {
 
@@ -191,15 +191,14 @@ if ($Teaser) {
 } 
 else {
 
-    $teaserHomePage = $false
+    $teaserHomePage = "false"
 
 }
 
 
 ## Create you header
 
-$header = "
----
+$header = "---
 title: `"${headerTitle}`"
 date: ${postDate}
 layout: single
@@ -214,6 +213,7 @@ ${headerCategories}
 tags:
 ${headerTags}
 ---
+
 "
 
 ## Take your markdown file and replace all picture paths with new path in assest
