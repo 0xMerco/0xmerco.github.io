@@ -2,7 +2,7 @@
 title: "HTB Very Easy: Responder"
 date: 2023-09-04
 layout: single
-excerpt: "Learned How To User Responder"
+excerpt: "Basic Responder Usage"
 classes: wide
 header:
   teaser: "/assets/images/Responder/responder.png"
